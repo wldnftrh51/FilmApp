@@ -7,7 +7,8 @@
 <body>
 <h1>Edit Studio</h1>
 
-<g:form controller="studio" action="update">
+<g:form controller="studio" action="update" method="post">
+    <g:hiddenField name="_method" value="PUT"/>
     <g:hiddenField name="id" value="${studio.id}"/>
     <div>
         <label for="name">Name</label>

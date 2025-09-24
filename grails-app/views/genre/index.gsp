@@ -23,7 +23,8 @@
             <td>
                 <g:link action="show" id="${genre.id}">Show</g:link> |
                 <g:link action="edit" id="${genre.id}">Edit</g:link> |
-                <g:form action="delete" method="POST" style="display:inline">
+                <g:form action="delete" method="post" style="display:inline">
+                    <g:hiddenField name="_method" value="DELETE"/>
                     <g:hiddenField name="id" value="${genre.id}"/>
                     <g:submitButton name="delete" value="Delete" onclick="return confirm('Are you sure?')"/>
                 </g:form>

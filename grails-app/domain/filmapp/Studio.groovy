@@ -1,13 +1,11 @@
 package filmapp
 
-import javax.print.DocFlavor
-
 class Studio {
 
     String name
     String country
 
-    static hasMany = [films: Film]
+    static hasMany = [films: Film] // One-to-many: Studio -> Film
 
     static constraints = {
         name blank: false
