@@ -1,38 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'film.label', default: 'Film')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-    <div id="content" role="main">
-        <div class="container">
-            <section class="row">
-                <a href="#list-film" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="row">
-                <div id="list-film" class="col-12 content scaffold-list" role="main">
-                    <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-                    <g:if test="${flash.message}">
-                        <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-                    <f:table collection="${filmList}" />
-
-                    <g:if test="${filmCount > params.int('max')}">
-                    <div class="pagination">
-                        <g:paginate total="${filmCount ?: 0}" />
-                    </div>
-                    </g:if>
-                </div>
-            </section>
-        </div>
-    </div>
-    </body>
-</html>
+<h1>All Films</h1>
+<g:link action="create">Create New Film</g:link>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Studio</th>
+        <th>Release Date</th>
+        <th>Genres</th>
+        <th>Actions</th>
+    </tr>
+    <g:each in="${filmList}" var="f">
+        <tr>
+            <td>${f.title}</td>
+            <td>${f.studio?.name}</td>
+            <td><g:formatDate date="${f.releseaseDate}" format="yyyy-MM-dd"/></td>
+            <td>${f.genres*.name.join(', ')}</td>
+            <td>
+                <g:link action="show" id="${f.id}">Show</g:link> |
+                <g:link action="edit" id="${f.id}">Edit</g:link> |
+                <g:form action="delete" method="DELETE" style="display:inline">
+                    <g:hiddenField name="id" value="${f.id}"/>
+                    <g:submitButton name="delete" value="Delete"/>
+                </g:form>
+            </td>
+        </tr>
+    </g:each>
+</table>

@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'studio.label', default: 'Studio')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-    <div id="content" role="main">
-        <div class="container">
-            <section class="row">
-                <a href="#list-studio" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="row">
-                <div id="list-studio" class="col-12 content scaffold-list" role="main">
-                    <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-                    <g:if test="${flash.message}">
-                        <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-                    <f:table collection="${studioList}" />
+<head>
+    <meta name="layout" content="main"/>
+    <title>Studios</title>
+</head>
+<body>
+<h1>Studios</h1>
 
-                    <g:if test="${studioCount > params.int('max')}">
-                    <div class="pagination">
-                        <g:paginate total="${studioCount ?: 0}" />
-                    </div>
-                    </g:if>
-                </div>
-            </section>
-        </div>
-    </div>
-    </body>
+<a href="${createLink(controller:'studio', action:'create')}">Create New Studio</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <g:each in="${studioList}" var="studio">
+        <tr>
+            <td>${studio.name}</td>
+            <td>${studio.country}</td>
+            <td>
+                <g:link action="show" id="${studio.id}">Show</g:link> |
+                <g:link action="edit" id="${studio.id}">Edit</g:link> |
+                <g:form action="delete" method="POST" style="display:inline">
+                    <g:hiddenField name="id" value="${studio.id}"/>
+                    <g:submitButton name="delete" value="Delete" onclick="return confirm('Are you sure?')"/>
+                </g:form>
+            </td>
+        </tr>
+    </g:each>
+    </tbody>
+</table>
+</body>
 </html>

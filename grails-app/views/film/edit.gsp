@@ -1,48 +1,98 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'film.label', default: 'Film')}" />
-        <title><g:message code="default.edit.label" args="[entityName]" /></title>
-    </head>
-    <body>
-    <div id="content" role="main">
-        <div class="container">
-            <section class="row">
-                <a href="#edit-film" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="row">
-                <div id="edit-film" class="col-12 content scaffold-edit" role="main">
-                    <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-                    <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-                    <g:hasErrors bean="${this.film}">
-                    <ul class="errors" role="alert">
-                        <g:eachError bean="${this.film}" var="error">
-                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                        </g:eachError>
-                    </ul>
-                    </g:hasErrors>
-                    <g:form resource="${this.film}" method="PUT">
-                        <g:hiddenField name="version" value="${this.film?.version}" />
-                        <fieldset class="form">
-                            <f:all bean="film"/>
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-                        </fieldset>
-                    </g:form>
-                </div>
-            </section>
-        </div>
+<head>
+    <meta name="layout" content="main"/>
+    <title>Create Film</title>
+</head>
+
+<body>
+<h1>Edit Film</h1>
+
+<g:form controller="film" action="update" method="PUT">
+    <g:hiddenField name="id" value="${film?.id}"/>
+    <!-- Form fields sama seperti create.gsp -->
+    <div>
+        <label>Title</label>
+        <g:field name="title" value="${film?.title}"/>
     </div>
-    </body>
+
+    <div>
+        <label>Studio</label>
+        <g:select name="studio.id" from="${studios}" optionKey="id" optionValue="name"
+                  value="${film?.studio?.id}" noSelection="['': '--Select Studio--']"/>
+    </div>
+
+    <div>
+        <label>Release Date</label>
+        <g:field type="date" name="releseaseDate" value="${film?.releseaseDate}"/>
+    </div>
+
+    <div>
+        <label>Film Type</label>
+        <g:select id="filmType" name="filmType" from="${['Fiction', 'Documentary']}"
+                  value="${film?.filmType}"/>
+    </div>
+
+    <div id="subgenreField">
+        <label>Subgenre (Fiction)</label>
+        <g:select name="subgenre.id" from="${subgenres}" optionKey="id" optionValue="name"
+                  value="${film?.subgenre?.id}" noSelection="['':'--Select Subgenre--']"/>
+    </div>
+
+    <div id="subjectAreaField">
+        <label>Subject Area (Documentary)</label>
+        <g:field name="subjectArea" value="${film?.subjectArea}"/>
+    </div>
+
+    <div>
+        <label>Has Sequel?</label>
+        <g:checkBox id="hasSequel" name="hasSequel" value="${film?.hasSequel}"/>
+    </div>
+
+    <div id="sequelTitleField">
+        <label>Sequel Title</label>
+        <g:field name="sequelTitle" value="${film?.sequelTitle}"/>
+    </div>
+
+    <div>
+        <label>Genres</label>
+        <g:each in="${genres}" var="g">
+            <label>
+                <g:checkBox name="genres" value="${g.id}"
+                            checked="${film?.genres?.id?.contains(g.id)}"/> ${g.name}
+            </label><br/>
+        </g:each>
+    </div>
+
+    <g:submitButton name="update" value="Update"/>
+</g:form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function toggleFields() {
+            const filmType = $('#filmType').val();
+            if (filmType === 'Fiction') {
+                $('#subgenreField').show();
+                $('#subjectAreaField').hide();
+            } else if (filmType === 'Documentary') {
+                $('#subgenreField').hide();
+                $('#subjectAreaField').show();
+            } else {
+                $('#subgenreField,#subjectAreaField').hide();
+            }
+
+            if ($('#hasSequel').is(':checked')) {
+                $('#sequelTitleField').show();
+            } else {
+                $('#sequelTitleField').hide();
+            }
+        }
+
+        toggleFields();
+        $('#filmType').change(toggleFields);
+        $('#hasSequel').change(toggleFields);
+    });
+</script>
+</body>
 </html>
