@@ -25,7 +25,8 @@
             <td>
                 <g:link action="show" id="${studio.id}">Show</g:link> |
                 <g:link action="edit" id="${studio.id}">Edit</g:link> |
-                <g:form action="delete" method="POST" style="display:inline">
+                <g:form controller="studio" action="delete" method="POST" style="display:inline">
+                    <g:hiddenField name="_method" value="DELETE"/>
                     <g:hiddenField name="id" value="${studio.id}"/>
                     <g:submitButton name="delete" value="Delete" onclick="return confirm('Are you sure?')"/>
                 </g:form>

@@ -4,93 +4,45 @@
     <meta name="layout" content="main"/>
     <title>Create Film</title>
 </head>
-
 <body>
 <h1>Create Film</h1>
 
 <g:form controller="film" action="save">
     <div>
         <label>Title</label>
-        <g:field name="title" value="${film?.title}"/>
+        <g:textField name="title" value="${film?.title}"/>
     </div>
 
     <div>
         <label>Studio</label>
-        <g:select name="studio.id" from="${studios}" optionKey="id" optionValue="name"
-                  value="${film?.studio?.id}" noSelection="['': '--Select Studio--']"/>
+        <g:select name="studio.id" from="${studios}" optionKey="id" optionValue="name" value="${film?.studio?.id}"/>
     </div>
 
     <div>
         <label>Release Date</label>
-        <g:field type="date" name="releseaseDate" value="${film?.releseaseDate}"/>
+        <g:datePicker name="releaseDate" precision="day" value="${film?.releaseDate}"/>
     </div>
 
     <div>
         <label>Film Type</label>
-        <g:select id="filmType" name="filmType" from="${['Fiction', 'Documentary']}"
-                  value="${film?.filmType}"/>
+        <g:textField name="filmType" value="${film?.filmType}"/>
     </div>
 
-    <div id="subgenreField">
-        <label>Subgenre (Fiction)</label>
-        <g:select name="subgenre.id" from="${subgenres}" optionKey="id" optionValue="name"
-                  value="${film?.subgenre?.id}" noSelection="['':'--Select Subgenre--']"/>
-    </div>
-
-    <div id="subjectAreaField">
-        <label>Subject Area (Documentary)</label>
-        <g:field name="subjectArea" value="${film?.subjectArea}"/>
-    </div>
 
     <div>
-        <label>Has Sequel?</label>
-        <g:checkBox id="hasSequel" name="hasSequel" value="${film?.hasSequel}"/>
-    </div>
-
-    <div id="sequelTitleField">
-        <label>Sequel Title</label>
-        <g:field name="sequelTitle" value="${film?.sequelTitle}"/>
-    </div>
-
-    <div>
-        <label>Genres</label>
+        <label>Genres</label><br/>
         <g:each in="${genres}" var="g">
             <label>
-                <g:checkBox name="genres" value="${g.id}"
-                            checked="${film?.genres?.id?.contains(g.id)}"/> ${g.name}
+                <input type="checkbox" name="genres.id" value="${g.id}"
+                       <g:if test="${film?.genres*.id?.contains(g.id)}">checked</g:if>/>
+                ${g.name}
             </label><br/>
         </g:each>
     </div>
 
-    <g:submitButton name="create" value="Create"/>
+    <div>
+        <g:submitButton name="create" value="Save"/>
+    </div>
 </g:form>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        function toggleFields() {
-            const filmType = $('#filmType').val();
-            if (filmType === 'Fiction') {
-                $('#subgenreField').show();
-                $('#subjectAreaField').hide();
-            } else if (filmType === 'Documentary') {
-                $('#subgenreField').hide();
-                $('#subjectAreaField').show();
-            } else {
-                $('#subgenreField,#subjectAreaField').hide();
-            }
-
-            if ($('#hasSequel').is(':checked')) {
-                $('#sequelTitleField').show();
-            } else {
-                $('#sequelTitleField').hide();
-            }
-        }
-
-        toggleFields();
-        $('#filmType').change(toggleFields);
-        $('#hasSequel').change(toggleFields);
-    });
-</script>
 </body>
 </html>

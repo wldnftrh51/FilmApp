@@ -1,18 +1,19 @@
 package filmapp
 
-import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
-@Service(Film)
-interface FilmService {
+@Transactional
+class FilmService {
 
-    Film get(Serializable id)
+    def get(Long id) {
+        Film.get(id)
+    }
 
-    List<Film> list(Map args)
+    def save(Film film) {
+        film.save(flush:true)
+    }
 
-    Long count()
-
-    void delete(Serializable id)
-
-    Film save(Film film)
-
+    def delete(Long id) {
+        Film.get(id)?.delete(flush:true)
+    }
 }

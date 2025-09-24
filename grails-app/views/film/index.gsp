@@ -1,6 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="layout" content="main"/>
+    <title>All Films</title>
+</head>
+<body>
 <h1>All Films</h1>
-<g:link action="create">Create New Film</g:link>
-<table>
+
+<g:link action="create" class="btn btn-primary">Create New Film</g:link>
+
+<table border="1" cellpadding="5" cellspacing="0">
     <tr>
         <th>Title</th>
         <th>Studio</th>
@@ -12,7 +21,7 @@
         <tr>
             <td>${f.title}</td>
             <td>${f.studio?.name}</td>
-            <td><g:formatDate date="${f.releseaseDate}" format="yyyy-MM-dd"/></td>
+            <td><g:formatDate date="${f.releaseDate}" format="yyyy-MM-dd"/></td>
             <td>${f.genres*.name.join(', ')}</td>
             <td>
                 <g:link action="show" id="${f.id}">Show</g:link> |
@@ -24,4 +33,7 @@
             </td>
         </tr>
     </g:each>
+
 </table>
+</body>
+</html>
