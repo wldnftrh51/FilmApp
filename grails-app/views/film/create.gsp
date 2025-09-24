@@ -23,11 +23,23 @@
         <g:datePicker name="releaseDate" precision="day" value="${film?.releaseDate}"/>
     </div>
 
+%{--    <div>--}%
+%{--        <label>Film Type</label>--}%
+%{--        <g:textField name="filmType" value="${film?.filmType}"/>--}%
+%{--    </div>--}%
+
     <div>
         <label>Film Type</label>
-        <g:textField name="filmType" value="${film?.filmType}"/>
+        <select id="filmType" name="filmType">
+            <option value="Fiction" <g:if test="${film?.filmType == 'Fiction'}">selected</g:if>>Fiction</option>
+            <option value="Documentary" <g:if test="${film?.filmType == 'Documentary'}">selected</g:if>>Documentary</option>
+        </select>
     </div>
 
+    <div id="sourceDiv" style="display: none;">
+        <label>Source</label>
+        <g:textField name="subjectArea" value="${film?.subjectArea}"/>
+    </div>
 
     <div>
         <label>Genres</label><br/>
@@ -44,5 +56,26 @@
         <g:submitButton name="create" value="Save"/>
     </div>
 </g:form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        function toggleSource() {
+            if ($('#filmType').val() === 'Documentary') {
+                $('#sourceDiv').show();
+            } else {
+                $('#sourceDiv').hide();
+            }
+        }
+
+        toggleSource();
+
+        $('#filmType').change(function() {
+            toggleSource();
+        });
+    });
+</script>
+
 </body>
 </html>
