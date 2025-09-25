@@ -9,9 +9,24 @@ class StudioController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
+//    def index(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+//        respond studioService.list(params), model:[studioCount: studioService.count()]
+//    }
+
+    def index(Integer max){
         params.max = Math.min(max ?: 10, 100)
-        respond studioService.list(params), model:[studioCount: studioService.count()]
+
+        if (params.q){
+            String searchTerm = "%${params.q.trim()}%"
+            def studioList = Studio.createCriteria().list(params){
+                ilike("name", searchTerm)
+            }
+            println "Found ${studioList.totalCount} result for search '${params.q}'"
+            respond studioList, model: [studioCount: studioList.totalCount]
+        } else {
+            respond studioService.list(params), model: [filmCount: studioService.count()]
+        }
     }
 
     def show(Long id) {

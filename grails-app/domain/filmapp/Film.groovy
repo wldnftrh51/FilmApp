@@ -5,9 +5,10 @@ class Film {
     String title
     Date releaseDate
     String filmType
-    String subjectArea
+    String subjectArea // Diganti menjadi source
     Boolean hasSequel = false
-    String sequelTitle
+//    String sequelTitle
+    String synopsis
 
     static belongsTo = [studio: Studio] // One-to-many: Studio -> Film
     static hasMany = [genres: Genre]     // Many-to-many: Film <-> Genre
@@ -20,6 +21,7 @@ class Film {
         hasSequel nullable: true
         sequelTitle nullable: true
         studio nullable: false
+        synopsis nullable: true
         genres validator: { val ->
             if (!val || val.isEmpty()) return ['film.genres.required']
         }

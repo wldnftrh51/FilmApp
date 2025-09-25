@@ -11,16 +11,31 @@ class FilmController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     // List all films
-    def index(Integer max) {
+//    def index(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+//
+//        def filmList = Film.createCriteria().list(params) {
+////            fetchMode "genres", org.hibernate.FetchMode.JOIN
+//            fetchMode "studio", org.hibernate.FetchMode.JOIN
+//            order("id", "desc")
+//        }
+//
+//        respond filmList, model: [filmCount: Film.count()]
+//    }
+
+    def index(Integer max){
         params.max = Math.min(max ?: 10, 100)
 
-        def filmList = Film.createCriteria().list(params) {
-//            fetchMode "genres", org.hibernate.FetchMode.JOIN
-            fetchMode "studio", org.hibernate.FetchMode.JOIN
-            order("id", "desc")
+        if (params.q){
+            String searchTerm = "%${params.q.trim()}%"
+            def filmList = Film.createCriteria().list(params){
+                ilike("title", searchTerm)
+            }
+            println "Found ${filmList.totalCount} result for search '${params.q}'"
+            respond filmList, model: [filmCount: filmList.totalCount]
+        } else {
+            respond filmService.list(params), model: [filmCount: filmService.count()]
         }
-
-        respond filmList, model: [filmCount: Film.count()]
     }
 
 

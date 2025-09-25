@@ -19,6 +19,11 @@
     </div>
 
     <div>
+        <label for="description">Description</label>
+        <g:textArea name="description" value="${studio?.description}"/>
+    </div>
+
+    <div>
         <g:submitButton name="create" value="Create"/>
     </div>
 </g:form>

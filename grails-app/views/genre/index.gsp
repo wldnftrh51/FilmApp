@@ -9,6 +9,11 @@
 
 <a href="${createLink(controller:'genre', action:'create')}">Create New Genre</a>
 
+<g:form controller="genre" action="index" method="get">
+    <input type="text" name="q" value="${params.q}" placeholder="Search genres..."/>
+    <button type="submit">Search</button>
+</g:form>
+
 <table>
     <thead>
     <tr>
@@ -33,5 +38,9 @@
     </g:each>
     </tbody>
 </table>
+
+<div class="pagination">
+    <g:paginate total="${genreCount}" params="${params}"/>
+</div>
 </body>
 </html>

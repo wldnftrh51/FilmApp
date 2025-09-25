@@ -1,19 +1,36 @@
+//package filmapp
+//
+//import grails.gorm.transactions.Transactional
+//
+//@Transactional
+//class FilmService {
+//
+//    def get(Long id) {
+//        Film.get(id)
+//    }
+//
+//    def save(Film film) {
+//        film.save(flush:true)
+//    }
+//
+//    def delete(Long id) {
+//        Film.get(id)?.delete(flush:true)
+//    }
+//}
 package filmapp
 
-import grails.gorm.transactions.Transactional
+import grails.gorm.services.Service
 
-@Transactional
-class FilmService {
+@Service(Film)
+interface FilmService {
 
-    def get(Long id) {
-        Film.get(id)
-    }
+    Film get(Serializable id)
 
-    def save(Film film) {
-        film.save(flush:true)
-    }
+    List<Film> list(Map args)
 
-    def delete(Long id) {
-        Film.get(id)?.delete(flush:true)
-    }
+    Long count()
+
+    void delete(Serializable id)
+
+    Film save(Film film)
 }

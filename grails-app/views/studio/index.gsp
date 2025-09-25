@@ -9,6 +9,11 @@
 
 <a href="${createLink(controller:'studio', action:'create')}">Create New Studio</a>
 
+<g:form controller="studio" action="index" method="get">
+    <input type="text" name="q" value="${params.q}" placeholder="Search studios..."/>
+    <button type="submit">Search</button>
+</g:form>
+
 <table>
     <thead>
     <tr>
@@ -35,5 +40,10 @@
     </g:each>
     </tbody>
 </table>
+
+<div class="pagination">
+    <g:paginate total="${studioCount}" params="${params}"/>
+</div>
+
 </body>
 </html>
