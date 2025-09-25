@@ -3,35 +3,62 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Film Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-<g:link action="index">Back to List</g:link>
+<div class="container py-5">
 
-<h1>Film Details</h1>
+    <h1><g:link action="index" class="text-decoration-none text-dark">Film</g:link></h1>
 
-<p><strong>Title :</strong> ${film.title}</p>
+    <h2 class="mt-4 mb-4">Film Details</h2>
 
-<p><strong>Studio :</strong> ${film.studio?.name}</p>
+    <div class="mb-3">
+        <strong>Title:</strong>
+        <span class="ms-2">${film.title}</span>
+    </div>
 
-<p><strong>Release Date :</strong> <g:formatDate format="yyyy-MM-dd" date="${film.releaseDate}"/></p>
+    <div class="mb-3">
+        <strong>Studio:</strong>
+        <span class="ms-2">${film.studio?.name}</span>
+    </div>
 
-<p><strong>Film Type :</strong> ${film.filmType}</p>
+    <div class="mb-3">
+        <strong>Release Date:</strong>
+        <span class="ms-2"><g:formatDate format="yyyy-MM-dd" date="${film.releaseDate}"/></span>
+    </div>
 
-<g:if test="${film.filmType == 'Documentary'}">
-    <p><strong>Source :</strong> ${film.source}</p>
-</g:if>
+    <div class="mb-3">
+        <strong>Film Type:</strong>
+        <span class="ms-2">${film.filmType}</span>
+    </div>
 
-<p><strong>Genres :</strong>
-    <g:each in="${film.genres}" var="genre">
-        ${genre.name}<g:if test="${!genre.is(film.genres[-1])}">,</g:if>
-    </g:each>
-</p>
+    <g:if test="${film.filmType == 'Documentary'}">
+        <div class="mb-3">
+            <strong>Source:</strong>
+            <span class="ms-2">${film.source}</span>
+        </div>
+    </g:if>
 
-<p><strong>Synopsis :</strong> ${film?.synopsis?.trim() ? film.synopsis : '-'}</p>
+    <div class="mb-3">
+        <strong>Genres:</strong>
+        <span class="ms-2">
+            <g:each in="${film.genres}" var="genre">
+                ${genre.name}<g:if test="${!genre.is(film.genres[-1])}">, </g:if>
+            </g:each>
+        </span>
+    </div>
 
-<g:link action="edit" id="${film.id}">Edit</g:link>
+    <div class="mb-3">
+        <strong>Synopsis:</strong>
+        <span class="ms-2">${film?.synopsis?.trim() ? film.synopsis : '-'}</span>
+    </div>
+
+    <g:link action="edit" id="${film.id}" class="btn btn-primary mt-3">Edit</g:link>
+
+</div>
 
 </body>
 </html>

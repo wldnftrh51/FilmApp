@@ -16,6 +16,6 @@
 <p><strong>Name :</strong> ${genre.name}</p>
 <p><strong>Description :</strong> ${genre.description}</p>
 <g:link action="edit" id="${genre.id}">Edit</g:link> |
-<g:link action="index">Back to List</g:link>
+
 </body>
 </html>

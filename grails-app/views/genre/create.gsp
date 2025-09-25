@@ -25,7 +25,5 @@
         <g:submitButton name="create" value="Create"/>
     </div>
 </g:form>
-
-<g:link action="index">Back to List</g:link>
 </body>
 </html>
