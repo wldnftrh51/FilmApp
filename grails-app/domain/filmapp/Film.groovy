@@ -6,7 +6,7 @@ class Film {
     Date releaseDate
     String filmType
     String source // Diganti menjadi source
-    Boolean hasSequel = false
+//    Boolean hasSequel = false
 //    String sequelTitle
     String synopsis
 
@@ -14,13 +14,14 @@ class Film {
     static hasMany = [genres: Genre]     // Many-to-many: Film <-> Genre
     Set<Genre> genres = []
     static constraints = {
+        studio nullable: true
         title blank: false
         releaseDate nullable: false
         filmType nullable: false
         source nullable: true
-        hasSequel nullable: true
+//        hasSequel nullable: true
 //        sequelTitle nullable: true
-        studio nullable: false
+//        studio nullable: false
         synopsis nullable: true
         genres validator: { val ->
             if (!val || val.isEmpty()) return ['film.genres.required']

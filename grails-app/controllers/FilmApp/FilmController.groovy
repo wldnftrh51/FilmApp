@@ -154,11 +154,19 @@ class FilmController {
         if (!film) { notFound(); return }
 
         film.properties = params
+//        film.genres.clear()
+//        (params.list('genres') ?: []).each { genreId ->
+//            def genre = Genre.get(genreId.toLong())
+//            if (genre) film.addToGenres(genre)
+//        }
         film.genres.clear()
-        (params.list('genres') ?: []).each { genreId ->
-            def genre = Genre.get(genreId.toLong())
-            if (genre) film.addToGenres(genre)
+        (params.list('genres.id') ?: []).each { genreId ->
+            if (genreId) {   // skip null/empty
+                def genre = Genre.get(genreId.toLong())
+                if (genre) film.addToGenres(genre)
+            }
         }
+
 
         filmService.save(film)   // <- transaksi sudah dijamin service
         redirect action:"show", id:film.id

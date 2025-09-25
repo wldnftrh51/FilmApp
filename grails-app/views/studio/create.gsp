@@ -5,6 +5,9 @@
     <title>Create Studio</title>
 </head>
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 <h1>Create Studio</h1>
 
 <g:form controller="studio" action="save">
@@ -27,7 +30,5 @@
         <g:submitButton name="create" value="Create"/>
     </div>
 </g:form>
-
-<g:link action="index">Back to List</g:link>
 </body>
 </html>
