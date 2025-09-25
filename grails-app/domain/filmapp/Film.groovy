@@ -5,7 +5,7 @@ class Film {
     String title
     Date releaseDate
     String filmType
-    String subjectArea // Diganti menjadi source
+    String source // Diganti menjadi source
     Boolean hasSequel = false
 //    String sequelTitle
     String synopsis
@@ -17,9 +17,9 @@ class Film {
         title blank: false
         releaseDate nullable: false
         filmType nullable: false
-        subjectArea nullable: true
+        source nullable: true
         hasSequel nullable: true
-        sequelTitle nullable: true
+//        sequelTitle nullable: true
         studio nullable: false
         synopsis nullable: true
         genres validator: { val ->

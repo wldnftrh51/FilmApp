@@ -5,6 +5,9 @@
     <title>Show Genre</title>
 </head>
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 %{--<h1>Genre: ${genre.name}</h1>--}%
 
 %{--<p>ID: ${genre.id}</p>--}%

@@ -4,7 +4,11 @@
     <meta name="layout" content="main"/>
     <title>Create Film</title>
 </head>
+
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 <h1>Create Film</h1>
 
 <g:form controller="film" action="save">
@@ -25,7 +29,10 @@
 
     <div>
         <label>Release Date</label>
-        <g:field type="date" name="releaseDate" value="${film?.releaseDate?.format('yyyy-MM-dd')}"/>
+        %{--        <g:field type="date" name="releaseDate" value="${film?.releaseDate?.format('yyyy-MM-dd')}"/>--}%
+        <g:field type="date" name="releaseDate"
+                 value="${film?.releaseDate ? formatDate(format: 'yyyy-MM-dd', date: film.releaseDate) : ''}"/>
+
     </div>
 
 %{--    <div>--}%
@@ -37,13 +44,14 @@
         <label>Film Type</label>
         <select id="filmType" name="filmType">
             <option value="Fiction" <g:if test="${film?.filmType == 'Fiction'}">selected</g:if>>Fiction</option>
-            <option value="Documentary" <g:if test="${film?.filmType == 'Documentary'}">selected</g:if>>Documentary</option>
+            <option value="Documentary"
+                    <g:if test="${film?.filmType == 'Documentary'}">selected</g:if>>Documentary</option>
         </select>
     </div>
 
     <div id="sourceDiv" style="display: none;">
         <label>Source</label>
-        <g:textField name="subjectArea" value="${film?.subjectArea}"/>
+        <g:textField name="source" value="${film?.source}"/>
     </div>
 
     <div>
@@ -78,7 +86,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         function toggleSource() {
             if ($('#filmType').val() === 'Documentary') {
                 $('#sourceDiv').show();
@@ -88,7 +96,7 @@
         }
 
         function toggleSynopsis() {
-            if ($('#hasSynopsis').val() === 'YES'){
+            if ($('#hasSynopsis').val() === 'YES') {
                 $('#synopsisDiv').show();
             } else {
                 $('#synopsisDiv').hide();
@@ -98,7 +106,7 @@
         toggleSource();
         toggleSynopsis();
 
-        $('#filmType').change(function() {
+        $('#filmType').change(function () {
             toggleSource();
         });
 

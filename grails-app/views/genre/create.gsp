@@ -5,6 +5,9 @@
     <title>Create Genre</title>
 </head>
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 <h1>Create Genre</h1>
 
 <g:form controller="genre" action="save">

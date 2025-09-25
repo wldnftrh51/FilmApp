@@ -34,8 +34,9 @@
                 <g:link action="show" id="${f.id}">Show</g:link> |
                 <g:link action="edit" id="${f.id}">Edit</g:link> |
                 <g:form action="delete" method="DELETE" style="display:inline">
+                    <g:hiddenField name="_method" value="DELETE"/>
                     <g:hiddenField name="id" value="${f.id}"/>
-                    <g:submitButton name="delete" value="Delete"/>
+                    <g:submitButton name="delete" value="Delete" onclick="return confirm('Are you sure?')"/>
                 </g:form>
             </td>
         </tr>
