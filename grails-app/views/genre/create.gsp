@@ -14,6 +14,11 @@
     </div>
 
     <div>
+        <label for="description">Description</label>
+        <g:textArea name="description" value="${genre?.description}" rows="4" cols="40"/>
+    </div>
+
+    <div>
         <g:submitButton name="create" value="Create"/>
     </div>
 </g:form>
