@@ -5,6 +5,9 @@
     <title>Edit Genre</title>
 </head>
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 <h1>Edit Genre</h1>
 
 <g:form controller="genre" action="update" method="post">
@@ -25,8 +28,6 @@
         <g:submitButton name="update" value="Update"/>
     </div>
 </g:form>
-
-<g:link action="index">Back to List</g:link>
 
 </body>
 </html>

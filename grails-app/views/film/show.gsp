@@ -6,6 +6,9 @@
 </head>
 
 <body>
+
+<g:link action="index">Back to List</g:link>
+
 <h1>Film Details</h1>
 
 <p><strong>Title :</strong> ${film.title}</p>
@@ -17,7 +20,7 @@
 <p><strong>Film Type :</strong> ${film.filmType}</p>
 
 <g:if test="${film.filmType == 'Documentary'}">
-    <p><strong>Source :</strong> ${film.subjectArea}</p>
+    <p><strong>Source :</strong> ${film.source}</p>
 </g:if>
 
 <p><strong>Genres :</strong>
@@ -26,7 +29,9 @@
     </g:each>
 </p>
 
-<g:link action="edit" id="${film.id}">Edit</g:link> |
-<g:link action="index">Back to List</g:link>
+<p><strong>Synopsis :</strong> ${film?.synopsis?.trim() ? film.synopsis : '-'}</p>
+
+<g:link action="edit" id="${film.id}">Edit</g:link>
+
 </body>
 </html>

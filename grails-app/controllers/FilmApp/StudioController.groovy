@@ -25,7 +25,7 @@ class StudioController {
             println "Found ${studioList.totalCount} result for search '${params.q}'"
             respond studioList, model: [studioCount: studioList.totalCount]
         } else {
-            respond studioService.list(params), model: [filmCount: studioService.count()]
+            respond studioService.list(params), model: [studioCount: studioService.count()]
         }
     }
 

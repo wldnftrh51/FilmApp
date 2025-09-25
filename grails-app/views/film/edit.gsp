@@ -5,6 +5,7 @@
     <title>Edit Film</title>
 </head>
 <body>
+<g:link action="index">Back to List</g:link>
 <h1>Edit Film</h1>
 
 <g:form controller="film" action="update" method="PUT">
@@ -27,7 +28,10 @@
 
     <div>
         <label>Release Date</label>
-        <g:field type="date" name="releaseDate" value="${film?.releaseDate?.format('yyyy-MM-dd')}"/>
+        %{--        <g:field type="date" name="releaseDate" value="${film?.releaseDate?.format('yyyy-MM-dd')}"/>--}%
+        <g:field type="date" name="releaseDate"
+                 value="${film?.releaseDate ? formatDate(format: 'yyyy-MM-dd', date: film.releaseDate) : ''}"/>
+
     </div>
 
     <div>
@@ -40,7 +44,7 @@
 
     <div id="sourceDiv" style="display: none;">
         <label>Source</label>
-        <g:textField name="subjectArea" value="${film?.subjectArea}"/>
+        <g:textField name="source" value="${film?.source}"/>
     </div>
 
     <div>

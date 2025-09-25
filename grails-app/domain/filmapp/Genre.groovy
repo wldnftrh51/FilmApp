@@ -9,6 +9,6 @@ class Genre {
     static belongsTo = Film
     static constraints = {
         name blank: false
-        description blank: false
+        description nullable: true
     }
 }

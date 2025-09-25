@@ -42,5 +42,6 @@
 <div class="pagination">
     <g:paginate total="${genreCount}" params="${params}"/>
 </div>
+
 </body>
 </html>
