@@ -9,11 +9,6 @@ class GenreController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-//    def index(Integer max) {
-//        params.max = Math.min(max ?: 10, 100)
-//        respond genreService.list(params), model:[genreCount: genreService.count()]
-//    }
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 
