@@ -31,7 +31,7 @@ class FilmService {
     Film save(Film film) {
         film.save(flush: true)
     }
-    @Transactional
+//    @Transactional
     Film saveFilmWithGenres(Film film, List<String> genreIds) {
         if (!film) return null
         film.genres?.clear()

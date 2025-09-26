@@ -13,11 +13,7 @@ class GenreController {
         params.max = Math.min(max ?: 10, 100)
 
         if (params.q) {
-            String searchTerm = "%${params.q.trim()}%"
-            def genreList = Genre.createCriteria().list(params) {
-                ilike("name", searchTerm)
-            }
-            println "Found ${genreList.totalCount} results for search '${params.q}'"
+            def genreList = genreService.searchByName(params.q, params)
             respond genreList, model: [genreCount: genreList.totalCount]
         } else {
             respond genreService.list(params), model: [genreCount: genreService.count()]
@@ -25,7 +21,8 @@ class GenreController {
     }
 
     def show(Long id) {
-        respond genreService.get(id)
+        def genre = genreService.get(id)
+        respond genre
     }
 
     def create() {

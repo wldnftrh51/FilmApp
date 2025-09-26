@@ -13,11 +13,7 @@ class StudioController {
         params.max = Math.min(max ?: 10, 100)
 
         if (params.q){
-            String searchTerm = "%${params.q.trim()}%"
-            def studioList = Studio.createCriteria().list(params){
-                ilike("name", searchTerm)
-            }
-            println "Found ${studioList.totalCount} result for search '${params.q}'"
+            def studioList = studioService.searchByName(params.q, params)
             respond studioList, model: [studioCount: studioList.totalCount]
         } else {
             respond studioService.list(params), model: [studioCount: studioService.count()]
