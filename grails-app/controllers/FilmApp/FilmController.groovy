@@ -1,9 +1,7 @@
 package FilmApp
 
-import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.SpringSecurityService
 
-@Secured(['ROLE_USER'])
 class FilmController {
 
     SpringSecurityService springSecurityService

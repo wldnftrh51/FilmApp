@@ -4,7 +4,7 @@
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'FilmApp.auth.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'FilmApp.auth.UserRole'
 grails.plugin.springsecurity.authority.className = 'FilmApp.auth.Role'
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/film/index'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home/index'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
@@ -17,6 +17,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']],
+	[pattern: '/home/**', access: ['permitAll']],
+    [pattern: '/film/**', access: ['permitAll']],
     [pattern: '/genre/**', access: ['ROLE_ADMIN']],
     [pattern: '/studio/**', access: ['ROLE_ADMIN']]
 ]
