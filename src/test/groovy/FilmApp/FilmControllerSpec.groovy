@@ -1,11 +1,11 @@
-package filmapp
+package FilmApp
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class GenreControllerSpec extends Specification implements ControllerUnitTest<GenreController>, DomainUnitTest<Genre> {
+class FilmControllerSpec extends Specification implements ControllerUnitTest<FilmController>, DomainUnitTest<Film> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.genreService = Mock(GenreService) {
+        controller.filmService = Mock(FilmService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.index()
 
         then:"The model is correct"
-        !model.genreList
-        model.genreCount == 0
+        !model.filmList
+        model.filmCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.create()
 
         then:"The model is correctly created"
-        model.genre!= null
+        model.film!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/genre/index'
+        response.redirectedUrl == '/film/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * save(_ as Genre)
+        controller.filmService = Mock(FilmService) {
+            1 * save(_ as Film)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def genre = new Genre(params)
-        genre.id = 1
+        def film = new Film(params)
+        film.id = 1
 
-        controller.save(genre)
+        controller.save(film)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/genre/show/1'
+        response.redirectedUrl == '/film/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * save(_ as Genre) >> { Genre genre ->
-                throw new ValidationException("Invalid instance", genre.errors)
+        controller.filmService = Mock(FilmService) {
+            1 * save(_ as Film) >> { Film film ->
+                throw new ValidationException("Invalid instance", film.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def genre = new Genre()
-        controller.save(genre)
+        def film = new Film()
+        controller.save(film)
 
         then:"The create view is rendered again with the correct model"
-        model.genre != null
+        model.film != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.genreService = Mock(GenreService) {
+        controller.filmService = Mock(FilmService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
 
     void "Test the show action with a valid id"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * get(2) >> new Genre()
+        controller.filmService = Mock(FilmService) {
+            1 * get(2) >> new Film()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.genre instanceof Genre
+        model.film instanceof Film
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.genreService = Mock(GenreService) {
+        controller.filmService = Mock(FilmService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * get(2) >> new Genre()
+        controller.filmService = Mock(FilmService) {
+            1 * get(2) >> new Film()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.genre instanceof Genre
+        model.film instanceof Film
     }
 
 
@@ -149,14 +149,14 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/genre/index'
+        response.redirectedUrl == '/film/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * save(_ as Genre)
+        controller.filmService = Mock(FilmService) {
+            1 * save(_ as Film)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def genre = new Genre(params)
-        genre.id = 1
+        def film = new Film(params)
+        film.id = 1
 
-        controller.update(genre)
+        controller.update(film)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/genre/show/1'
+        response.redirectedUrl == '/film/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.genreService = Mock(GenreService) {
-            1 * save(_ as Genre) >> { Genre genre ->
-                throw new ValidationException("Invalid instance", genre.errors)
+        controller.filmService = Mock(FilmService) {
+            1 * save(_ as Film) >> { Film film ->
+                throw new ValidationException("Invalid instance", film.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Genre())
+        controller.update(new Film())
 
         then:"The edit view is rendered again with the correct model"
-        model.genre != null
+        model.film != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/genre/index'
+        response.redirectedUrl == '/film/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.genreService = Mock(GenreService) {
+        controller.filmService = Mock(FilmService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class GenreControllerSpec extends Specification implements ControllerUnitTest<Ge
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/genre/index'
+        response.redirectedUrl == '/film/index'
         flash.message != null
     }
 }

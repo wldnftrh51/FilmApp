@@ -17,11 +17,9 @@
 //
 //}
 
-package filmapp
+package FilmApp
 
 import grails.gorm.transactions.Transactional
-
-import javax.sql.rowset.spi.TransactionalWriter
 
 @Transactional
 class StudioService {

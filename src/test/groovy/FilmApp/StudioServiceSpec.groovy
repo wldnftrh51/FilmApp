@@ -1,4 +1,4 @@
-package filmapp
+package FilmApp
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback

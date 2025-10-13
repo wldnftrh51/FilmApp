@@ -1,4 +1,4 @@
-package filmapp
+package FilmApp
 
 class Subgenre {
 

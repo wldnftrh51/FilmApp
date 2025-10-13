@@ -1,11 +1,11 @@
-package filmapp
+package FilmApp
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class FilmControllerSpec extends Specification implements ControllerUnitTest<FilmController>, DomainUnitTest<Film> {
+class StudioControllerSpec extends Specification implements ControllerUnitTest<StudioController>, DomainUnitTest<Studio> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.filmService = Mock(FilmService) {
+        controller.studioService = Mock(StudioService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.index()
 
         then:"The model is correct"
-        !model.filmList
-        model.filmCount == 0
+        !model.studioList
+        model.studioCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.create()
 
         then:"The model is correctly created"
-        model.film!= null
+        model.studio!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/film/index'
+        response.redirectedUrl == '/studio/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * save(_ as Film)
+        controller.studioService = Mock(StudioService) {
+            1 * save(_ as Studio)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def film = new Film(params)
-        film.id = 1
+        def studio = new Studio(params)
+        studio.id = 1
 
-        controller.save(film)
+        controller.save(studio)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/film/show/1'
+        response.redirectedUrl == '/studio/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * save(_ as Film) >> { Film film ->
-                throw new ValidationException("Invalid instance", film.errors)
+        controller.studioService = Mock(StudioService) {
+            1 * save(_ as Studio) >> { Studio studio ->
+                throw new ValidationException("Invalid instance", studio.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def film = new Film()
-        controller.save(film)
+        def studio = new Studio()
+        controller.save(studio)
 
         then:"The create view is rendered again with the correct model"
-        model.film != null
+        model.studio != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.filmService = Mock(FilmService) {
+        controller.studioService = Mock(StudioService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
 
     void "Test the show action with a valid id"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * get(2) >> new Film()
+        controller.studioService = Mock(StudioService) {
+            1 * get(2) >> new Studio()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.film instanceof Film
+        model.studio instanceof Studio
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.filmService = Mock(FilmService) {
+        controller.studioService = Mock(StudioService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * get(2) >> new Film()
+        controller.studioService = Mock(StudioService) {
+            1 * get(2) >> new Studio()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.film instanceof Film
+        model.studio instanceof Studio
     }
 
 
@@ -149,14 +149,14 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/film/index'
+        response.redirectedUrl == '/studio/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * save(_ as Film)
+        controller.studioService = Mock(StudioService) {
+            1 * save(_ as Studio)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def film = new Film(params)
-        film.id = 1
+        def studio = new Studio(params)
+        studio.id = 1
 
-        controller.update(film)
+        controller.update(studio)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/film/show/1'
+        response.redirectedUrl == '/studio/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.filmService = Mock(FilmService) {
-            1 * save(_ as Film) >> { Film film ->
-                throw new ValidationException("Invalid instance", film.errors)
+        controller.studioService = Mock(StudioService) {
+            1 * save(_ as Studio) >> { Studio studio ->
+                throw new ValidationException("Invalid instance", studio.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Film())
+        controller.update(new Studio())
 
         then:"The edit view is rendered again with the correct model"
-        model.film != null
+        model.studio != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/film/index'
+        response.redirectedUrl == '/studio/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.filmService = Mock(FilmService) {
+        controller.studioService = Mock(StudioService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class FilmControllerSpec extends Specification implements ControllerUnitTest<Fil
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/film/index'
+        response.redirectedUrl == '/studio/index'
         flash.message != null
     }
 }
