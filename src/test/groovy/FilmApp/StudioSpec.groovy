@@ -1,13 +1,13 @@
-package filmapp
+package FilmApp
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class GenreSpec extends Specification implements DomainUnitTest<Genre> {
+class StudioSpec extends Specification implements DomainUnitTest<Studio> {
 
      void "test domain constraints"() {
         when:
-        Genre domain = new Genre()
+        Studio domain = new Studio()
         //TODO: Set domain props here
 
         then:

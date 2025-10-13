@@ -79,6 +79,7 @@ dependencies {
     testRuntimeOnly "org.seleniumhq.selenium:selenium-safari-driver:4.19.1"
 
     implementation "mysql:mysql-connector-java:8.0.28"
+    implementation "org.grails.plugins:spring-security-core:6.1.0"
 }
 
 application {

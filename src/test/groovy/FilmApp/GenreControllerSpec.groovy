@@ -1,11 +1,11 @@
-package filmapp
+package FilmApp
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class StudioControllerSpec extends Specification implements ControllerUnitTest<StudioController>, DomainUnitTest<Studio> {
+class GenreControllerSpec extends Specification implements ControllerUnitTest<GenreController>, DomainUnitTest<Genre> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.studioService = Mock(StudioService) {
+        controller.genreService = Mock(GenreService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.index()
 
         then:"The model is correct"
-        !model.studioList
-        model.studioCount == 0
+        !model.genreList
+        model.genreCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.create()
 
         then:"The model is correctly created"
-        model.studio!= null
+        model.genre!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/studio/index'
+        response.redirectedUrl == '/genre/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * save(_ as Studio)
+        controller.genreService = Mock(GenreService) {
+            1 * save(_ as Genre)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def studio = new Studio(params)
-        studio.id = 1
+        def genre = new Genre(params)
+        genre.id = 1
 
-        controller.save(studio)
+        controller.save(genre)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/studio/show/1'
+        response.redirectedUrl == '/genre/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * save(_ as Studio) >> { Studio studio ->
-                throw new ValidationException("Invalid instance", studio.errors)
+        controller.genreService = Mock(GenreService) {
+            1 * save(_ as Genre) >> { Genre genre ->
+                throw new ValidationException("Invalid instance", genre.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def studio = new Studio()
-        controller.save(studio)
+        def genre = new Genre()
+        controller.save(genre)
 
         then:"The create view is rendered again with the correct model"
-        model.studio != null
+        model.genre != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.studioService = Mock(StudioService) {
+        controller.genreService = Mock(GenreService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
 
     void "Test the show action with a valid id"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * get(2) >> new Studio()
+        controller.genreService = Mock(GenreService) {
+            1 * get(2) >> new Genre()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.studio instanceof Studio
+        model.genre instanceof Genre
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.studioService = Mock(StudioService) {
+        controller.genreService = Mock(GenreService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * get(2) >> new Studio()
+        controller.genreService = Mock(GenreService) {
+            1 * get(2) >> new Genre()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.studio instanceof Studio
+        model.genre instanceof Genre
     }
 
 
@@ -149,14 +149,14 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/studio/index'
+        response.redirectedUrl == '/genre/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * save(_ as Studio)
+        controller.genreService = Mock(GenreService) {
+            1 * save(_ as Genre)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def studio = new Studio(params)
-        studio.id = 1
+        def genre = new Genre(params)
+        genre.id = 1
 
-        controller.update(studio)
+        controller.update(genre)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/studio/show/1'
+        response.redirectedUrl == '/genre/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.studioService = Mock(StudioService) {
-            1 * save(_ as Studio) >> { Studio studio ->
-                throw new ValidationException("Invalid instance", studio.errors)
+        controller.genreService = Mock(GenreService) {
+            1 * save(_ as Genre) >> { Genre genre ->
+                throw new ValidationException("Invalid instance", genre.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Studio())
+        controller.update(new Genre())
 
         then:"The edit view is rendered again with the correct model"
-        model.studio != null
+        model.genre != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/studio/index'
+        response.redirectedUrl == '/genre/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.studioService = Mock(StudioService) {
+        controller.genreService = Mock(GenreService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class StudioControllerSpec extends Specification implements ControllerUnitTest<S
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/studio/index'
+        response.redirectedUrl == '/genre/index'
         flash.message != null
     }
 }

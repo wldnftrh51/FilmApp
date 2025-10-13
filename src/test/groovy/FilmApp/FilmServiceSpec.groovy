@@ -1,4 +1,4 @@
-package filmapp
+package FilmApp
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
@@ -7,37 +7,37 @@ import org.hibernate.SessionFactory
 
 @Integration
 @Rollback
-class GenreServiceSpec extends Specification {
+class FilmServiceSpec extends Specification {
 
-    GenreService genreService
+    FilmService filmService
     SessionFactory sessionFactory
 
     private Long setupData() {
         // TODO: Populate valid domain instances and return a valid ID
-        //new Genre(...).save(flush: true, failOnError: true)
-        //new Genre(...).save(flush: true, failOnError: true)
-        //Genre genre = new Genre(...).save(flush: true, failOnError: true)
-        //new Genre(...).save(flush: true, failOnError: true)
-        //new Genre(...).save(flush: true, failOnError: true)
+        //new Film(...).save(flush: true, failOnError: true)
+        //new Film(...).save(flush: true, failOnError: true)
+        //Film film = new Film(...).save(flush: true, failOnError: true)
+        //new Film(...).save(flush: true, failOnError: true)
+        //new Film(...).save(flush: true, failOnError: true)
         assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        //genre.id
+        //film.id
     }
 
     void "test get"() {
         setupData()
 
         expect:
-        genreService.get(1) != null
+        filmService.get(1) != null
     }
 
     void "test list"() {
         setupData()
 
         when:
-        List<Genre> genreList = genreService.list(max: 2, offset: 2)
+        List<Film> filmList = filmService.list(max: 2, offset: 2)
 
         then:
-        genreList.size() == 2
+        filmList.size() == 2
         assert false, "TODO: Verify the correct instances are returned"
     }
 
@@ -45,30 +45,30 @@ class GenreServiceSpec extends Specification {
         setupData()
 
         expect:
-        genreService.count() == 5
+        filmService.count() == 5
     }
 
     void "test delete"() {
-        Long genreId = setupData()
+        Long filmId = setupData()
 
         expect:
-        genreService.count() == 5
+        filmService.count() == 5
 
         when:
-        genreService.delete(genreId)
+        filmService.delete(filmId)
         sessionFactory.currentSession.flush()
 
         then:
-        genreService.count() == 4
+        filmService.count() == 4
     }
 
     void "test save"() {
         when:
         assert false, "TODO: Provide a valid instance to save"
-        Genre genre = new Genre()
-        genreService.save(genre)
+        Film film = new Film()
+        filmService.save(film)
 
         then:
-        genre.id != null
+        film.id != null
     }
 }

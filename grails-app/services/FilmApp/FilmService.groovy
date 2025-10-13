@@ -1,4 +1,4 @@
-package filmapp
+package FilmApp
 
 import grails.gorm.transactions.Transactional
 
