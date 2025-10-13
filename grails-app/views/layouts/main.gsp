@@ -14,7 +14,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/home">
             <asset:image src="logo.png" alt="My FilmApp Logo" style="height:100px;"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
@@ -27,6 +27,7 @@
                 <li class="nav-item"><g:link class="nav-link" controller="film" action="index">Films</g:link></li>
                 <li class="nav-item"><g:link class="nav-link" controller="genre" action="index">Genres</g:link></li>
                 <li class="nav-item"><g:link class="nav-link" controller="studio" action="index">Studios</g:link></li>
+                <li class="nav-item"><g:link class="nav-link" controller="logout">Log out</g:link></li>
             </ul>
         </div>
     </div>
