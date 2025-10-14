@@ -36,7 +36,7 @@
 
                         <div class="text-center">
                             <p class="mb-0">Belum punya akun?
-                            <g:link controller="register" action="index">Register</g:link>
+                            <g:link controller="register" action="create">Register</g:link>
                             </p>
                         </div>
                     </form>

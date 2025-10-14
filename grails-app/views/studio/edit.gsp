@@ -3,34 +3,40 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Edit Studio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
 
-<g:link action="index">Back to List</g:link>
+<body class="bg-light">
 
-<h1>Edit Studio</h1>
+<div class="container py-5">
+    <h1><g:link action="index" class="text-decoration-none text-dark">Studio</g:link></h1>
+    <h2>Edit Studio</h2>
 
-<g:form controller="studio" action="update" method="post">
-    <g:hiddenField name="_method" value="PUT"/>
-    <g:hiddenField name="id" value="${studio.id}"/>
-    <div>
-        <label for="name">Name</label>
-        <g:field name="name" value="${studio?.name}"/>
-    </div>
+    <g:form controller="studio" action="update" method="post">
+        <g:hiddenField name="_method" value="PUT"/>
+        <g:hiddenField name="id" value="${studio.id}"/>
 
-    <div>
-        <label for="country">Country</label>
-        <g:field name="country" value="${studio?.country}"/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <g:field name="name" value="${studio?.name}" class="form-control"/>
+        </div>
 
-    <div>
-        <label for="description">Description</label>
-        <g:textArea name="description" value="${studio?.description}"/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <g:field name="country" value="${studio?.country}" class="form-control"/>
+        </div>
 
-    <div>
-        <g:submitButton name="update" value="Update"/>
-    </div>
-</g:form>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <g:textArea name="description" value="${studio?.description}" rows="4" cols="40" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <g:submitButton name="update" value="Update" class="btn btn-primary"/>
+        </div>
+    </g:form>
+</div>
+
 </body>
 </html>

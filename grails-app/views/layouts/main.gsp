@@ -9,9 +9,8 @@
     <asset:stylesheet src="application.css"/>
     <g:layoutHead/>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
         <a class="navbar-brand" href="/home">
@@ -33,13 +32,11 @@
     </div>
 </nav>
 
-<!-- Main content -->
-<main role="main" class="container mt-4">
+<main role="main" class="container flex-fill">
     <g:layoutBody/>
 </main>
 
-<!-- Footer -->
-<footer class="footer bg-dark mt-5">
+<footer class="footer bg-dark">
     <div class="container text-center py-3">
         &copy; <g:formatDate date="${new Date()}" format="yyyy"/> My FilmApp. All rights reserved.
     </div>

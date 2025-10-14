@@ -6,11 +6,11 @@ class Studio {
     String country
     String description
 
-    static hasMany = [films: Film] // One-to-many: Studio -> Film
+    static hasMany = [films: Film]
 
     static constraints = {
-        name blank: false
-        country nullable: true
-        description nullable: true
+        name nullable: false, blank: false
+        country nullable: true, blank: true
+        description nullable: true, blank: true
     }
 }

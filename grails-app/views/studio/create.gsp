@@ -3,32 +3,37 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Create Studio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
 
-<g:link action="index">Back to List</g:link>
+<body class="bg-light">
 
-<h1>Create Studio</h1>
+<div class="container py-5">
+    <h1><g:link action="index" class="text-decoration-none text-dark">Studio</g:link></h1>
+    <h2>Create Studio</h2>
 
-<g:form controller="studio" action="save">
-    <div>
-        <label for="name">Name</label>
-        <g:field name="name" value="${studio?.name}"/>
-    </div>
+    <g:form controller="studio" action="save" class="needs-validation">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <g:textField name="name" value="${studio?.name}" class="form-control" required="true"/>
+        </div>
 
-    <div>
-        <label for="country">Country</label>
-        <g:field name="country" value="${studio?.country}"/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <g:textField name="country" value="${studio?.country}" class="form-control"/>
+        </div>
 
-    <div>
-        <label for="description">Description</label>
-        <g:textArea name="description" value="${studio?.description}"/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <g:textArea name="description" value="${studio?.description}" rows="4" cols="40" class="form-control"/>
+        </div>
 
-    <div>
-        <g:submitButton name="create" value="Create"/>
-    </div>
-</g:form>
+        <div class="mb-3">
+            <g:submitButton name="create" value="Create" class="btn btn-success"/>
+        </div>
+    </g:form>
+</div>
+
 </body>
 </html>
