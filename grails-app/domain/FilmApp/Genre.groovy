@@ -3,12 +3,12 @@ package FilmApp
 class Genre {
 
     String name
-    String description = "-"
+    String description
 
-    static hasMany = [films: Film] // many-to-many
+    static hasMany = [films: Film]
     static belongsTo = Film
     static constraints = {
-        name blank: false
-        description nullable: false
+        name nullable: false, blank: false
+        description nullable: true, blank: true
     }
 }

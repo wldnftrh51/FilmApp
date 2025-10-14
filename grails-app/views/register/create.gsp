@@ -33,7 +33,7 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Register As</label>
                             <g:select name="role"
-                                      from="${['USER':'User', 'ADMIN':'Admin']}"
+                                      from="${['ROLE_USER':'User', 'ROLE_ADMIN':'Admin']}"
                                       optionKey="key" optionValue="value"
                                       class="form-select"/>
                         </div>

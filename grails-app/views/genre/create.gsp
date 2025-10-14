@@ -3,27 +3,31 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Create Genre</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<g:link action="index">Back to List</g:link>
+<div class="container py-5">
+    <h1><g:link action="index" class="text-decoration-none text-dark">Genre</g:link></h1>
+    <h2 class="mt-4 mb-4">Create Genre</h2>
 
-<h1>Create Genre</h1>
+    <g:form controller="genre" action="save" class="needs-validation">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <g:textField name="name" value="${genre?.name}" class="form-control" required="true"/>
+        </div>
 
-<g:form controller="genre" action="save">
-    <div>
-        <label for="name">Name</label>
-        <g:field name="name" value="${genre?.name}"/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <g:textArea name="description" value="${genre?.description}" rows="4" cols="40" class="form-control"/>
+        </div>
 
-    <div>
-        <label for="description">Description</label>
-        <g:textArea name="description" value="${genre?.description}" rows="4" cols="40"/>
-    </div>
+        <div class="mb-3">
+            <g:submitButton name="create" value="Create" class="btn btn-success"/>
+        </div>
+    </g:form>
+</div>
 
-    <div>
-        <g:submitButton name="create" value="Create"/>
-    </div>
-</g:form>
 </body>
 </html>

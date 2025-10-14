@@ -26,14 +26,8 @@
             <g:select name="studio.id" from="${studios}" optionKey="id" optionValue="name" value="${film?.studio?.id}" class="form-select"/>
         </div>
 
-    %{--    <div>--}%
-    %{--        <label>Release Date</label>--}%
-    %{--        <g:datePicker name="releaseDate" precision="day" value="${film?.releaseDate}"/>--}%
-    %{--    </div>--}%
-
         <div class="mb-3">
             <label class="form-label">Release Date</label>
-            %{--        <g:field type="date" name="releaseDate" value="${film?.releaseDate?.format('yyyy-MM-dd')}"/>--}%
             <g:field type="date" name="releaseDate"
                      value="${film?.releaseDate ? formatDate(format: 'yyyy-MM-dd', date: film.releaseDate) : ''}" class="form-control"/>
         </div>
@@ -51,17 +45,6 @@
             <g:textField name="source" value="${film?.source}" class="form-control"/>
         </div>
 
-%{--        <div>--}%
-%{--            <label>Genres</label><br/>--}%
-%{--            <g:each in="${genres}" var="g">--}%
-%{--                <label>--}%
-%{--                    <input type="checkbox" name="genres" value="${g.id}"--}%
-%{--                           <g:if test="${film?.genres*.id?.contains(g.id)}">checked</g:if>/>--}%
-%{--                    ${g.name}--}%
-%{--                </label><br/>--}%
-%{--            </g:each>--}%
-%{--        </div>--}%
-
         <div>
             <label>Genres</label>
         <div class="row">
@@ -75,7 +58,6 @@
                         </label>
                     </div>
                 </div>
-            <%-- Tambahkan baris baru tiap 5 checkbox --%>
                 <g:if test="${(i + 1) % 5 == 0}">
                     </div><div class="row">
                 </g:if>
@@ -104,37 +86,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <asset:javascript src="jqueryFilm.js" />
-
-%{--<script>--}%
-%{--    $(document).ready(function() {--}%
-%{--        function toggleSource() {--}%
-%{--            if ($('#filmType').val() === 'Documentary') {--}%
-%{--                $('#sourceDiv').show();--}%
-%{--            } else {--}%
-%{--                $('#sourceDiv').hide();--}%
-%{--            }--}%
-%{--        }--}%
-
-%{--        function toggleSynopsis() {--}%
-%{--            if ($('#hasSynopsis').val() === 'YES'){--}%
-%{--                $('#synopsisDiv').show();--}%
-%{--            } else {--}%
-%{--                $('#synopsisDiv').hide();--}%
-%{--            }--}%
-%{--        }--}%
-
-%{--        toggleSource();--}%
-%{--        toggleSynopsis();--}%
-
-%{--        $('#filmType').change(function() {--}%
-%{--            toggleSource();--}%
-%{--        });--}%
-
-%{--        $('#hasSynopsis').change(function () {--}%
-%{--            toggleSynopsis();--}%
-%{--        });--}%
-%{--    });--}%
-%{--</script>--}%
 
 </body>
 </html>

@@ -15,11 +15,11 @@
 
     <h2 class="mt-4 mb-4">Create Film</h2>
 
-    <g:form controller="film" action="save" class="needs-validation" html="[novalidate:'novalidate']">
+    <g:form controller="film" action="save" class="needs-validation">
 
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <g:textField name="title" value="${film?.title}" class="form-control"/>
+            <g:textField name="title" value="${film?.title}" class="form-control" required="true"/>
         </div>
 
         <div class="mb-3">
@@ -61,7 +61,6 @@
                         </label>
                     </div>
                 </div>
-            <%-- Tambahkan baris baru tiap 5 checkbox --%>
                 <g:if test="${(i + 1) % 5 == 0}">
                     </div><div class="row">
                 </g:if>

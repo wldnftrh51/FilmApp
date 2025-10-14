@@ -35,6 +35,11 @@ class GenreController {
             return
         }
 
+        if (genre.hasErrors()) {
+            respond genre.errors, view: 'create'
+            return
+        }
+
         try {
             genreService.save(genre)
         } catch (ValidationException e) {

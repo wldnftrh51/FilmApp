@@ -34,6 +34,11 @@ class StudioController {
             return
         }
 
+        if (studio.hasErrors()) {
+            respond studio.errors, view: 'create'
+            return
+        }
+
         try {
             studioService.save(studio)
         } catch (ValidationException e) {
