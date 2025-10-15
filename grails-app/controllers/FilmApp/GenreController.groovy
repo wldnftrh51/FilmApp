@@ -1,5 +1,6 @@
 package FilmApp
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -9,6 +10,7 @@ class GenreController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 
@@ -20,15 +22,18 @@ class GenreController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def show(Long id) {
         def genre = genreService.get(id)
         respond genre
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new Genre(params)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save(Genre genre) {
         if (genre == null) {
             notFound()
@@ -56,10 +61,12 @@ class GenreController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit(Long id) {
         respond genreService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update(Genre genre) {
         if (genre == null) {
             notFound()
@@ -82,6 +89,7 @@ class GenreController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         if (id == null) {
             notFound()
@@ -99,6 +107,7 @@ class GenreController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     protected void notFound() {
         request.withFormat {
             form multipartForm {

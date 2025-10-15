@@ -6,6 +6,7 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'FilmApp.auth.U
 grails.plugin.springsecurity.authority.className = 'FilmApp.auth.Role'
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home/index'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.adh.errorPage = '/login/denied'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
