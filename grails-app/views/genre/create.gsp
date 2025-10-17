@@ -15,7 +15,7 @@
     <g:form controller="genre" action="save" class="needs-validation">
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <g:textField name="name" value="${genre?.name}" class="form-control" required="true"/>
+            <g:textField name="name" value="${genre?.name}" class="form-control validate-required" data-label="Name"/>
         </div>
 
         <div class="mb-3">
@@ -27,6 +27,9 @@
             <g:submitButton name="create" value="Create" class="btn btn-success"/>
         </div>
     </g:form>
+
+    <div id="errorPopup" class="hidden popup"></div>
+    <asset:javascript src="form-validation.js"/>
 </div>
 
 </body>

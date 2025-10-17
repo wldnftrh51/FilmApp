@@ -19,13 +19,13 @@
 
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <g:textField name="title" value="${film?.title}" class="form-control" required="true"/>
+            <g:textField name="title" value="${film?.title}" class="form-control validate-required" data-label="Title"/>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Studio</label>
             <g:select name="studio.id" from="${studios}" optionKey="id" optionValue="name"
-                      value="${film?.studio?.id}" class="form-select"/>
+                      value="${film?.studio?.id}" noSelection="['':'-- Select Studio --']" class="form-select validate-required" data-label="Studio"/>
         </div>
 
         <div class="mb-3">
@@ -37,9 +37,12 @@
 
         <div class="mb-3">
             <label class="form-label">Film Type</label>
-            <select id="filmType" name="filmType" class="form-select">
+            <select id="filmType" name="filmType" class="form-select validate-required" data-label="Film Type">
+                <option value="" disabled
+                        <g:if test="${!film?.filmType}">selected</g:if>>-- Select Film Type --</option>
                 <option value="Fiction" <g:if test="${film?.filmType == 'Fiction'}">selected</g:if>>Fiction</option>
-                <option value="Documentary" <g:if test="${film?.filmType == 'Documentary'}">selected</g:if>>Documentary</option>
+                <option value="Documentary"
+                        <g:if test="${film?.filmType == 'Documentary'}">selected</g:if>>Documentary</option>
             </select>
         </div>
 
@@ -54,7 +57,8 @@
             <g:each in="${genres}" var="g" status="i">
                 <div class="col-2">
                     <div class="form-check">
-                        <input class="form-check-input border border-dark" type="checkbox" name="genres.id" value="${g.id}"
+                        <input class="form-check-input border border-dark" type="checkbox" name="genres.id"
+                               value="${g.id}"
                                <g:if test="${film?.genres*.id?.contains(g.id)}">checked</g:if> id="genre${g.id}"/>
                         <label class="form-check-label" for="genre${g.id}">
                             ${g.name}
@@ -88,10 +92,12 @@
 
     </g:form>
 
+    <div id="errorPopup" class="hidden popup"></div>
+    <asset:javascript src="form-validation.js"/>
 </div>
 
 <!-- jQuery & Custom JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<asset:javascript src="jqueryFilm.js" />
+<asset:javascript src="jqueryFilm.js"/>
 </body>
 </html>

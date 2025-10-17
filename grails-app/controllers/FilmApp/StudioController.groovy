@@ -1,5 +1,6 @@
 package FilmApp
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -9,6 +10,7 @@ class StudioController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def index(Integer max){
         params.max = Math.min(max ?: 10, 100)
 
@@ -20,14 +22,17 @@ class StudioController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def show(Long id) {
         respond studioService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new Studio(params)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save(Studio studio) {
         if (studio == null) {
             notFound()
@@ -55,10 +60,12 @@ class StudioController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit(Long id) {
         respond studioService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update(Studio studio) {
         if (studio == null) {
             notFound()
@@ -81,6 +88,7 @@ class StudioController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         if (id == null) {
             notFound()

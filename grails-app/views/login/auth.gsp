@@ -13,7 +13,7 @@
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h3 class="text-center mb-4">🔐 Login</h3>
+                    <h3 class="text-center mb-4">Login</h3>
 
                     <g:if test='${flash.message}'>
                         <div class="alert alert-danger">${flash.message}</div>
